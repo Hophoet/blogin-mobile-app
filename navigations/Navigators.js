@@ -3,7 +3,7 @@ import {createAppContainer, createSwitchNavigator } from 'react-navigation';
 
 import SignUp from '../screens/auth/SignUp'
 import SignIn from '../screens/auth/SignIn'
-
+import Loader from '../screens/auth/Loader'
 
 const AuthNav = createSwitchNavigator({
     SignIn:{
@@ -13,8 +13,12 @@ const AuthNav = createSwitchNavigator({
     },
     SignUp:{
         screen:SignUp
+    },
+    Loader:{
+      screen: Loader,
     }
-  }, {initialRouteName:'SignIn'})
+
+  }, {initialRouteName:'Loader'})
 
 
 
