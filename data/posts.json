@@ -1,0 +1,27 @@
+[
+    {
+        
+        "id":3,
+        "title":"why you should start learning python?",
+        "content":"python is the most wanted hight level programming language and use by big company like youtube, google, netflix, histagram",
+        "date":28383,
+        "category":"python",
+        "likes":388,
+        "comments":[
+            {"user":"bruce", "content":"very good!", "likes":3, "date":333},
+            {"user":"linda", "content":"online resource for python learning", "likes":2, "date":134}
+        ]
+    },
+    {
+        "id":8,
+        "title":"javascript future",
+        "content":"javascript is the most lovely hight level programming language and allowed you to  build mobile, web and desktop software",
+        "date":1487,
+        "category":"javascript",
+        "likes":211,
+        "comments":[
+            {"user":"virty", "content":"amazing pro language!", "likes":3, "date":111},
+            {"user":"huir", "content":"with what framework js can i choose for my first project", "likes":9, "date":1223}
+        ]
+    }
+]
