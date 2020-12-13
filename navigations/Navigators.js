@@ -5,6 +5,8 @@ import SignUp from '../screens/auth/SignUp'
 import SignIn from '../screens/auth/SignIn'
 import Loader from '../screens/auth/Loader'
 import Home from '../screens/main/Home'
+import PostDetail from '../screens/main/PostDetail'
+
 const AuthNav = createSwitchNavigator({
     SignIn:{
       screen: SignIn,
@@ -20,6 +22,9 @@ const AuthNav = createSwitchNavigator({
     Home:{
       screen:Home,
     },
+    PostDetail:{
+      screen:PostDetail
+    }
 
   }, {initialRouteName:'Home'})
 
