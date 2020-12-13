@@ -1,10 +1,15 @@
 import React from 'react'
-import {View, Text, StyleSheet} from 'react-native'
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native'
 
 export default (props) => {
     const post = props.post 
     return(
-        <View style={styles.itemContainer}>
+        <TouchableOpacity 
+            activeOpacity={.5} 
+            style={styles.itemContainer}
+            onPress={() => { props.navigate('PostDetail', {'post':post})}}
+            
+        >
             <View style={styles.container}>
                 <View style={[styles.row, styles.row1]}>
                     <Text> image </Text>
@@ -23,9 +28,12 @@ export default (props) => {
                 <Text >34 L</Text>
                 <Text > 12 C</Text>
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
+
+
+
 
 const styles = StyleSheet.create({
     itemContainer:{
