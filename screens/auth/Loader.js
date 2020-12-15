@@ -20,8 +20,7 @@ export default class Loader extends React.Component{
             }
             return tokenIsSend
         }
-
-        _tokenExists = async () => {
+        _saveTokenExists = async () => {
             const keys = await AsyncStorage.getAllKeys()
             const values = await AsyncStorage.multiGet(keys)
             let tokenExists = false 
@@ -35,10 +34,9 @@ export default class Loader extends React.Component{
             })
             return tokenExists
         }
-
         _getSendTokenFromAuth = () =>{
             let params = this.props.navigation.state.params
-            token = false
+            let token = false
             if(params){
                 if(params.token){
                     token = params.token
@@ -46,7 +44,6 @@ export default class Loader extends React.Component{
             }
             return token
         }
-
         _getSaveToken = async () => {
             const keys = await AsyncStorage.getAllKeys()
             const values = await AsyncStorage.multiGet(keys)
@@ -60,8 +57,6 @@ export default class Loader extends React.Component{
             })
             return tokenExists
         }
-
-
         //save token
         _saveToken = (token) => {
             AsyncStorage.setItem('token', token)
@@ -70,10 +65,34 @@ export default class Loader extends React.Component{
             })
         }
 
-
-
+        _navigate = (toScreen, data) => {
+            this.props.navigation.navigate(toScreen, data)
+        }
+        _manager = () => {
+            if(this._saveTokenExists()){
+                console.log('save token exists')
+                if(this._getSaveToken()){
+                    let token = this._getSaveToken()
+                    this._navigate('Home', {'token':token})
+                }
+            }
+            else{
+                if(this._tokenIsSends()){
+                    console.log('token is sends!')
+                    if(this._getSendTokenFromAuth()){
+                        let token = this._getSendTokenFromAuth()
+                        console.log('token sends:', token)
+                        this._saveToken(token)
+                        this._navigate('Home', {'token':token})
+                    }
+                  
+                }
+            }
+         
+            
+        }
         componentDidMount(){
-           
+            this._manager()
         }
 
 
