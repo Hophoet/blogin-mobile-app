@@ -59,12 +59,12 @@ export default class  Login extends React.Component{
                 body: formdata,
                 redirect: 'follow'
                 };
-                fetch("https://hophoetapis.herokuapp.com/rest-auth/login/", requestOptions)
+                fetch("https://bloginapi.herokuapp.com/rest-auth/login/", requestOptions)
                 .then(result => {   
                     //successfull request response case
                     //invalid response 
                     if(result.status == 400){
-                        console.log('error')
+                        // console.log('error')
                         Toast._show_bottom_toast('Bad request')
 
                     }
@@ -83,8 +83,10 @@ export default class  Login extends React.Component{
                 .then(response => {
                     //get of the login token
                     let token = response.key
+                    console.log("LOGIN TOKEN", token)
                     // console.log(token)
-                    this.props.navigation.navigate('Splash', {'token':token})
+                    this.props.navigation.navigate('Loader', {'token':token})
+                    this.setState({isLoading:false})
 
                 })
                 .catch(error => {
