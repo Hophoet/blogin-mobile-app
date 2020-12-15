@@ -10,11 +10,6 @@ export default class Loader extends React.Component{
         super(props)
     }
 
-    
-            
-        
-     
-
         _tokenIsSends = () => {
             let tokenIsSend = false
             let params = this.props.navigation.state.params
@@ -26,7 +21,7 @@ export default class Loader extends React.Component{
             return tokenIsSend
         }
 
-        _tokenExists = () => {
+        _tokenExists = async () => {
             const keys = await AsyncStorage.getAllKeys()
             const values = await AsyncStorage.multiGet(keys)
             let tokenExists = false 
@@ -52,7 +47,7 @@ export default class Loader extends React.Component{
             return token
         }
 
-        _getSaveToken = () => {
+        _getSaveToken = async () => {
             const keys = await AsyncStorage.getAllKeys()
             const values = await AsyncStorage.multiGet(keys)
             let tokenExists = false 
@@ -74,6 +69,8 @@ export default class Loader extends React.Component{
                 //save case
             })
         }
+
+
 
         componentDidMount(){
            
