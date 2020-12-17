@@ -7,16 +7,17 @@
  */
 
 import React from 'react';
-import Home from './screens/Home'
+import Main from './navigations/Navigators'
 
 
 
 export default class App extends React.Component{
   render(){
     return (
-      <Home/>
+      <Main/>
     );
   }
 }
+
 
 
