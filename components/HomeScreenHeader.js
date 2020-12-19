@@ -1,15 +1,20 @@
 import React from 'react'
-import {StyleSheet, View , Text, Dimensions} from 'react-native'
+import {StyleSheet, View , Text, Dimensions, TouchableOpacity} from 'react-native'
+import Icon from 'react-native-vector-icons/Ionicons'
+import {window} from '../assets/sizes/sizes'
 
 export default () => {
 
     return (
         <View style={styles.container}>
-            <View style={[styles.column]}>
-                <Text>BlogIn</Text>
-            </View>
-            <View style={[styles.column]}>
-                <Text>Profil</Text>
+                <View style={styles.appNameContainer}>
+                    <Text style={styles.appName}>BlogIn</Text>
+                </View>  
+
+            <View style={styles.userProfileColumn}>
+                <TouchableOpacity activeOpacity={.5} style={styles.userProfileIconContainer}>
+                    <Icon color='white' name='person' size={window.width/14}/>
+                </TouchableOpacity>
             </View>
         </View>
     )
@@ -19,14 +24,34 @@ const {height, width} = Dimensions.get('window')
 
 const styles = StyleSheet.create({
     container:{
-        backgroundColor:'gray',
         justifyContent:'space-between',
-        padding:height/40,
         flexDirection:'row',
+        padding:window.width/30,
+        
         
     },
     column:{
         // backgroundColor:'#584739',
-        margin:2
+        
+    },
+    userProfileIconContainer:{
+        backgroundColor:'gray',
+        borderRadius:60,
+        padding:5,
+        opacity:.7
+        
+    },
+    appNameContainer:{
+        justifyContent:'center',
+        alignItems:'center',
+    },
+    userProfileColumn:{
+        justifyContent:'center',
+        alignItems:'center',
+    },
+    appName:{
+        fontSize:20,
+        fontWeight:"bold",
+        color:'gray'
     }
 })
