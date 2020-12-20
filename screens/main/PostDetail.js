@@ -26,9 +26,42 @@ export default class PostDetail extends React.Component{
         return 'heart-outline'
     }
 
-    togglePostLike = () => {
-        this.setState({postIsLiked:!this.state.postIsLiked});
-    }
+    togglePostLike = ()=>{
+        var myHeaders = new Headers();
+        myHeaders.append("Cookie", "sessionid=92jccbwo7zm1q4py6aehunwdctv1szqi; csrftoken=32SnaSPitIge3XqyW4eE1Biea2RYC644xdTL6aFUl7K40cVMZTfsy0zYjv4XZEei");
+
+        var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+        };
+
+        fetch("https://bloginapi.herokuapp.com/toggle-post-like/", requestOptions)
+        .then(response => {
+            return response.json()
+            })
+        .then(result =>{
+            this.posts = result
+            let state = result.state
+            if(state == "post liked"){
+                this.setState({postIsLiked:true});
+            }
+            else{
+                this.setState({postIsLiked:false});
+            }
+        })
+        .catch(error => {
+            this.setState({postsGettingIsLoading:false})
+            console.log('error '+error)
+        });
+                
+        }
+
+ 
+
+    // togglePostLike = () => {
+    //     this.setState({postIsLiked:!this.state.postIsLiked});
+    // }
 
     navigate = (screenName, data) => {
         this.props.navigation.navigate(screenName, data)
