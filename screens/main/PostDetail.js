@@ -57,11 +57,38 @@ export default class PostDetail extends React.Component{
                 
         }
 
- 
+    postIsLiked = () => {
+        //method to get if the post is liked by the connect user
+        var myHeaders = new Headers();
+        myHeaders.append("Cookie", "sessionid=92jccbwo7zm1q4py6aehunwdctv1szqi; csrftoken=32SnaSPitIge3XqyW4eE1Biea2RYC644xdTL6aFUl7K40cVMZTfsy0zYjv4XZEei");
 
-    // togglePostLike = () => {
-    //     this.setState({postIsLiked:!this.state.postIsLiked});
-    // }
+        var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+        };
+
+        fetch("https://bloginapi.herokuapp.com/post-is-liked/", requestOptions)
+        .then(response => {
+            return response.json()
+            })
+        .then(result =>{
+            this.posts = result
+            let state = result.state
+            if(state == "post liked"){
+                this.setState({postIsLiked:true});
+            }
+            else{
+                this.setState({postIsLiked:false});
+            }
+        })
+        .catch(error => {
+            this.setState({postsGettingIsLoading:false})
+            console.log('error '+error)
+        });
+    }
+
+
 
     navigate = (screenName, data) => {
         this.props.navigation.navigate(screenName, data)
