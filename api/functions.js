@@ -34,8 +34,7 @@ const postIsLiked = async (authToken, postId) => {
             }
 
 
-
-togglePostLike = (authToken, postId)=>{
+togglePostLike = async (authToken, postId)=>{
         //method to know is post is liked by a user
         var myHeaders = new Headers();
         myHeaders.append("Authorization", "Token "+authToken);
