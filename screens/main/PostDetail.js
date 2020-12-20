@@ -51,7 +51,6 @@ export default class PostDetail extends React.Component{
             }
         })
         .catch(error => {
-            this.setState({postsGettingIsLoading:false})
             console.log('error '+error)
         });
                 
@@ -74,8 +73,8 @@ export default class PostDetail extends React.Component{
             })
         .then(result =>{
             this.posts = result
-            let state = result.state
-            if(state == "post liked"){
+            let post_is_liked = result.post_is_liked
+            if(post_is_liked){
                 this.setState({postIsLiked:true});
             }
             else{
@@ -83,7 +82,6 @@ export default class PostDetail extends React.Component{
             }
         })
         .catch(error => {
-            this.setState({postsGettingIsLoading:false})
             console.log('error '+error)
         });
     }
