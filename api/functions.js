@@ -34,7 +34,7 @@ const postIsLiked = async (authToken, postId) => {
             }
 
 
-togglePostLike = async (authToken, postId)=>{
+const togglePostLike = async (authToken, postId)=>{
         //method to know is post is liked by a user
         var myHeaders = new Headers();
         myHeaders.append("Authorization", "Token "+authToken);
@@ -65,4 +65,26 @@ togglePostLike = async (authToken, postId)=>{
             // return null;
         });
             
+}
+
+const getPosts = async () => {
+    var myHeaders = new Headers();
+    myHeaders.append("Cookie", "sessionid=92jccbwo7zm1q4py6aehunwdctv1szqi; csrftoken=32SnaSPitIge3XqyW4eE1Biea2RYC644xdTL6aFUl7K40cVMZTfsy0zYjv4XZEei");
+
+    var requestOptions = {
+    method: 'GET',
+    headers: myHeaders,
+    redirect: 'follow'
+    };
+
+    fetch("https://bloginapi.herokuapp.com/posts/", requestOptions)
+    .then(response => {
+        return response.json();
+        })
+    .then(result =>{
+        return result;
+    })
+    .catch(error => {
+        return error;
+    });
 }
