@@ -26,59 +26,79 @@ export default class PostDetail extends React.Component{
         return 'heart-outline'
     }
 
-    togglePostLike = ()=>{
+    togglePostLike = (postId)=>{
+        // console.log(postId)
         var myHeaders = new Headers();
+        myHeaders.append("Authorization", "Token 537daf239dc39aeae1ae6e43678bc9cd7bfc846e");
         myHeaders.append("Cookie", "sessionid=92jccbwo7zm1q4py6aehunwdctv1szqi; csrftoken=32SnaSPitIge3XqyW4eE1Biea2RYC644xdTL6aFUl7K40cVMZTfsy0zYjv4XZEei");
 
+        var formdata = new FormData();
+        formdata.append("user", "1");
+        formdata.append("post_id", `${postId}`);
+        formdata.append("post", `${postId}`);
+
         var requestOptions = {
-        method: 'GET',
+        method: 'POST',
         headers: myHeaders,
+        body: formdata,
         redirect: 'follow'
         };
 
         fetch("https://bloginapi.herokuapp.com/toggle-post-like/", requestOptions)
-        .then(response => {
-            return response.json()
-            })
-        .then(result =>{
-            this.posts = result
-            let state = result.state
-            if(state == "post liked"){
+        .then(response => response.json())
+        .then(result => {
+            let state = result.state 
+            if(state == 'post liked'){
                 this.setState({postIsLiked:true});
+                // console.log('post liked')
             }
             else{
                 this.setState({postIsLiked:false});
+                // console.log(result.state)
+                // console.log('post not liked')
+
             }
         })
         .catch(error => {
-            console.log('error '+error)
+
         });
                 
         }
 
-    postIsLiked = () => {
+    postIsLiked = (postId) => {
         //method to get if the post is liked by the connect user
         var myHeaders = new Headers();
+        myHeaders.append("Authorization", "Token 537daf239dc39aeae1ae6e43678bc9cd7bfc846e");
         myHeaders.append("Cookie", "sessionid=92jccbwo7zm1q4py6aehunwdctv1szqi; csrftoken=32SnaSPitIge3XqyW4eE1Biea2RYC644xdTL6aFUl7K40cVMZTfsy0zYjv4XZEei");
 
+        var formdata = new FormData();
+        formdata.append("user", "1");
+        formdata.append("post_id", `${postId}`);
+        formdata.append("post", `${postId}`);
+
         var requestOptions = {
-        method: 'GET',
+        method: 'POST',
         headers: myHeaders,
+        body: formdata,
         redirect: 'follow'
         };
-
+        // console.log("cl")
         fetch("https://bloginapi.herokuapp.com/post-is-liked/", requestOptions)
         .then(response => {
+            // console.log("cone")
             return response.json()
             })
         .then(result =>{
+            // console.log(result)
             this.posts = result
             let post_is_liked = result.post_is_liked
             if(post_is_liked){
                 this.setState({postIsLiked:true});
+                // console.log("--- is liked")
             }
             else{
                 this.setState({postIsLiked:false});
+                // console.log("--- not liked")
             }
         })
         .catch(error => {
@@ -90,6 +110,10 @@ export default class PostDetail extends React.Component{
 
     navigate = (screenName, data) => {
         this.props.navigation.navigate(screenName, data)
+    }
+
+    componentDidMount(){
+        this.postIsLiked(this.post.id)
     }
 
 
@@ -109,7 +133,7 @@ export default class PostDetail extends React.Component{
                     </View>
               
                     <View style={styles.bodyContainer}>
-                    <TouchableOpacity style={styles.postLikeIconContainer}  onPress={() => {this.togglePostLike()}} >
+                    <TouchableOpacity style={styles.postLikeIconContainer}  onPress={() => {this.togglePostLike(this.post.id)}} >
                         <Icon name={this.getPostLikeIconLabel()} size={window.width/7} />
                     </TouchableOpacity>
             
