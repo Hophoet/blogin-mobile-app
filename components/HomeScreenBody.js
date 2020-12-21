@@ -5,43 +5,49 @@ import {colors} from '../assets/colors/colors'
 //components
 import PostItem from '../components/PostItem'
 
-export default (props) => {
-    
+export default class HomeScreenBody extends React.Component{
+    constructor(props){
+        super(props);
+        this.authToken = this.props.authToken
+    }
+    componentDidMount(){
+    }
+    render(){
     //get posts list from props
-    const posts = props.posts
+    const posts = this.props.posts
+    // console.log('home screen '+this.authToken)
+
+    // console.log('Home screen body posts props')
+    // console.log(typeof posts)
     return (
         <View style={styles.container}>
            <View style={styles.postsContainer}>
+               <Text>Posts</Text>
                <FlatList
-                    style={styles.postsFlatList}
+                
                     data={posts}
-                    keyExtractor={(item) => item.id.toString()}
-                    renderItem={({index, item}) => <PostItem navigate={props.navigate} post={item}/> }
-
+                    keyExtractor={({index, item}) => index}
+                    renderItem={({index, item}) => <PostItem authToken={this.authToken} navigate={this.props.navigate} post={item}/>  }
 
                  />
            </View>
            
         </View>
     )
+    }
 }
 
 const {height, width} = Dimensions.get('window')
 
 const styles = StyleSheet.create({
     container:{
-        backgroundColor:colors.body,
-        // justifyContent:'space-between',
-        padding:height/40,
-        flexDirection:'row',
-        flex:1
+        margin:width/20
         
     },
     postsContainer:{
-        flex:1,
+     
     },
     postsFlatList:{
-        flex:1,
-        backgroundColor:'#6666'
+      
     }
 })
