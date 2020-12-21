@@ -14,7 +14,7 @@ export default class Loader extends React.Component{
             let tokenIsSend = false
             let params = this.props.navigation.state.params
             if(params){
-                if(params.token){
+                if(params.authToken){
                     tokenIsSend = true
                 }
             }
@@ -26,7 +26,7 @@ export default class Loader extends React.Component{
             let tokenExists = false 
             values.forEach( item => {
                 if(item){
-                    if(item[0] === 'token'){
+                    if(item[0] === 'authToken'){
                         tokenExists = true
                         
                     }
@@ -38,8 +38,8 @@ export default class Loader extends React.Component{
             let params = this.props.navigation.state.params
             let token = false
             if(params){
-                if(params.token){
-                    token = params.token
+                if(params.authToken){
+                    token = params.authToken
                 }
             }
             return token
@@ -50,7 +50,7 @@ export default class Loader extends React.Component{
             let tokenExists = false 
             values.forEach( item => {
                 if(item){
-                    if(item[0] === 'token'){
+                    if(item[0] === 'authToken'){
                         tokenExists = item[1]
                     }
                 }
@@ -59,7 +59,7 @@ export default class Loader extends React.Component{
         }
         //save token
         _saveToken = (token) => {
-            AsyncStorage.setItem('token', token)
+            AsyncStorage.setItem('authToken', token)
             .then(()=>{
                 //save case
             })
@@ -69,23 +69,35 @@ export default class Loader extends React.Component{
             this.props.navigation.navigate(toScreen, data)
         }
         _manager = () => {
-            if(this._saveTokenExists()){
+            console.log('manager')
+            if(this._saveTokenExists().d){
                 console.log('save token exists')
                 if(this._getSaveToken()){
                     let token = this._getSaveToken()
-                    this._navigate('Home', {'token':token})
+                    console.log(token)
+                    // this._navigate('Home', {'authToken':token})
+                }
+                else{
+                    // this._navigate('SignIn', {})
                 }
             }
             else{
+                console.log('not saved')
                 if(this._tokenIsSends()){
                     console.log('token is sends!')
                     if(this._getSendTokenFromAuth()){
                         let token = this._getSendTokenFromAuth()
                         console.log('token sends:', token)
                         this._saveToken(token)
-                        this._navigate('Home', {'token':token})
+                        this._navigate('Home', {'authToken':token})
+                    }
+                    else{
+                        // this._navigate('SignIn', {})
                     }
                   
+                }
+                else{
+                    // this._navigate('SignIn', {})
                 }
             }
          
