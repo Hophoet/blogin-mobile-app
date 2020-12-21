@@ -1,22 +1,26 @@
 import React from 'react'
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native'
-
+import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native'
+import {window} from '../assets/sizes/sizes'
 export default (props) => {
     const post = props.post 
+    const authToken = props.authToken 
+    console.log('item '+authToken)
+
     return(
         <TouchableOpacity 
             activeOpacity={.5} 
             style={styles.itemContainer}
-            onPress={() => { props.navigate('PostDetail', {'post':post})}}
+            onPress={() => { props.navigate('PostDetail', {'post':post, 'authToken':authToken})}}
             
+
         >
             <View style={styles.container}>
                 <View style={[styles.row, styles.row1]}>
-                    <Text> image </Text>
+                    <Image source={require('../assets/images/pis.jpg')} style={styles.postImage}   resizeMode='contain' />
                 </View>
                 <View style={[styles.row, styles.row2]}>
                     <Text numberOfLines={2} style={styles.postTitle}> {post.title} </Text>
-                    <Text numberOfLines={4} style={styles.postContent}>{post.content}</Text>
+                    <Text numberOfLines={3} style={styles.postContent}>{post.content}</Text>
                     <View style={styles.categoryAndDateContainer}>
                         <Text style={styles.postCategory} >{post.category}</Text>
                         <Text style={styles.postDate}>{post.date}</Text>
@@ -25,8 +29,11 @@ export default (props) => {
                 </View>
             </View>
             <View style={styles.postFooter}>
-                <Text >34 L</Text>
-                <Text > 12 C</Text>
+             
+                <View style={styles.postFooterSecondRow}>
+                   
+                </View>
+                
             </View>
         </TouchableOpacity>
     )
@@ -35,30 +42,37 @@ export default (props) => {
 
 
 
+
 const styles = StyleSheet.create({
     itemContainer:{
-        marginBottom:20
+        marginBottom:20,
+       
+       
+     
+
     },
     container:{
         flex:1,
         flexDirection:'row',
-        
- 
-        
+        backgroundColor:'white',
+        // elevation:10
     },
     postFooter:{
         flexDirection:'row',
-        justifyContent:'space-around',
+     
+        // backgroundColor:'red',
     },
     row:{
-        borderWidth:1,
+        // borderWidth:1,
         borderColor:'black',
-        padding:10
+
+        padding:10,
     },
     row1:{
         flex:1,
         justifyContent:'center',
         alignItems:'center',
+    
     },
     row2:{
         flex:3
@@ -79,5 +93,9 @@ const styles = StyleSheet.create({
     },
     postCategory:{
         opacity:.5
+    },
+    postImage:{
+        height:window.width/3
     }
+  
 })
