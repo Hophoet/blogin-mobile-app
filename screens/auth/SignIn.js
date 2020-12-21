@@ -85,7 +85,7 @@ export default class  Login extends React.Component{
                     let token = response.key
                     console.log("LOGIN TOKEN", token)
                     // console.log(token)
-                    this.props.navigation.navigate('Loader', {'token':token})
+                    this.props.navigation.navigate('Loader', {'authToken':token})
                     this.setState({isLoading:false})
 
                 })
