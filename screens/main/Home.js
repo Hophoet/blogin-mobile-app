@@ -8,8 +8,8 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 export default class Home extends React.Component {
     constructor(props){
         super(props)
-        this.posts = require('../../data/posts.json')
         let params = this.props.navigation.state.params
+        this.posts = []
         this.state = {
             postsGettingIsLoading:true
         }
@@ -25,20 +25,27 @@ export default class Home extends React.Component {
         headers: myHeaders,
         redirect: 'follow'
         };
-
-        fetch("https://bloginapi.herokuapp.com/posts/", requestOptions)
-        .then(response => {
-            return response.json()
-            })
-        .then(result =>{
-            this.posts = result
+        if(!this.posts.length){
+            console.log('call')
             console.log(this.posts)
+            fetch("https://bloginapi.herokuapp.com/posts/", requestOptions)
+            .then(response => {
+                return response.json()
+                })
+            .then(result =>{
+                this.posts = result
+                // console.log(this.posts)
+                this.setState({postsGettingIsLoading:false})
+            })
+            .catch(error => {
+                this.setState({postsGettingIsLoading:false})
+                console.log('error '+error)
+            });
+        }
+        else{
             this.setState({postsGettingIsLoading:false})
-        })
-        .catch(error => {
-            this.setState({postsGettingIsLoading:false})
-            console.log('error '+error)
-        });
+            
+        }
                 
         }
 
@@ -58,14 +65,27 @@ export default class Home extends React.Component {
         }
 
         if(this.posts.length > 0){
-            console.log('posts')
+            // console.log('posts')
             // console.log(this.posts)
             return (
                 <View>
-                    <HomeScreenBody navigate={this.navigate} posts={this.posts} />
+                    <HomeScreenBody authToken={this.authToken} navigate={this.navigate} posts={this.posts} />
                 </View>
             )
         }
+
+        return (
+         
+            <View style={styles.emptyCaseContainer}>
+                <View style={styles.imageContainer}>
+                    <Image  resizeMode='contain' style={styles.image} source={require('../../assets/images/pis.jpg')}/>
+                </View>
+                <View>
+                    <Text>check your connexion</Text>
+                </View>
+
+            </View>
+        )
  
     }
  
@@ -74,11 +94,14 @@ export default class Home extends React.Component {
     }
 
     componentDidMount(){
+        this.authToken = this.props.navigation.state.params.authToken 
+        // console.log(this.authToken)
         this.getPosts()
     }
 
 
     render(){
+        // console.log("home "+this.authToken)
         return (
             <View style={styles.container}>
                 <HomeScreenHeader/>
