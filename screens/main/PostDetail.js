@@ -14,6 +14,7 @@ export default class PostDetail extends React.Component{
     constructor(props){
         super(props)
         this.post = this.props.navigation.state.params.post
+        this.authToken = this.props.navigation.state.params.authToken
         this.state = {
             postIsLiked:false
         }
@@ -29,7 +30,7 @@ export default class PostDetail extends React.Component{
     togglePostLike = (postId)=>{
         // console.log(postId)
         var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Token 537daf239dc39aeae1ae6e43678bc9cd7bfc846e");
+        myHeaders.append("Authorization", `Token ${this.authToken}`);
         myHeaders.append("Cookie", "sessionid=92jccbwo7zm1q4py6aehunwdctv1szqi; csrftoken=32SnaSPitIge3XqyW4eE1Biea2RYC644xdTL6aFUl7K40cVMZTfsy0zYjv4XZEei");
 
         var formdata = new FormData();
@@ -68,7 +69,7 @@ export default class PostDetail extends React.Component{
     postIsLiked = (postId) => {
         //method to get if the post is liked by the connect user
         var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Token 537daf239dc39aeae1ae6e43678bc9cd7bfc846e");
+        myHeaders.append("Authorization", `Token ${this.authToken}`);
         myHeaders.append("Cookie", "sessionid=92jccbwo7zm1q4py6aehunwdctv1szqi; csrftoken=32SnaSPitIge3XqyW4eE1Biea2RYC644xdTL6aFUl7K40cVMZTfsy0zYjv4XZEei");
 
         var formdata = new FormData();
@@ -118,6 +119,8 @@ export default class PostDetail extends React.Component{
 
 
     render(){
+        // console.log('post detail authtoken '+this.authToken)
+     
        const headerData = { 'postTitle':this.post.title}
         return (
             <View style={styles.container}>
