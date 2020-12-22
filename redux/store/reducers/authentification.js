@@ -1,4 +1,4 @@
-import {SET_AUTHENTIFICATION_TOKEN} from './actions'
+import {SET_AUTHENTIFICATION_TOKEN} from '../actions'
 
 //set initial state
 const initialState = {
