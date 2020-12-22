@@ -1,11 +1,13 @@
 import React from 'react'
 import {StyleSheet, View, Text, Image, Dimensions, ActivityIndicator, FlatList} from 'react-native'
+
+import { connect } from 'react-redux'
 //components
 import HomeScreenHeader from '../../components/HomeScreenHeader'
 import HomeScreenBody from '../../components/HomeScreenBody'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
-export default class Home extends React.Component {
+class Home extends React.Component {
     constructor(props){
         super(props)
         let params = this.props.navigation.state.params
@@ -110,6 +112,22 @@ export default class Home extends React.Component {
         )
     } 
 }
+
+//maps with the state global
+const mapDispatchToProps = (dispatch) => {
+    return {
+        dispatch: (action) => {dispatch(action)}
+    }
+}
+
+const mapStateToProps = (state) => {
+    return {
+        authentificationToken:state.authentificationToken
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home)
+
 
 const {height, width} = Dimensions.get('window')
 const styles = StyleSheet.create({
