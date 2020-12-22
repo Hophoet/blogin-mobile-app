@@ -1,10 +1,11 @@
 import React from 'react'
 import {StyleSheet, StatusBar, View, Text, ActivityIndicator, TextInput, TouchableOpacity, Dimensions} from 'react-native'
-// import {Entypo, Ionicons} from '@expo/vector-icons'
+import { connect } from 'react-redux'
+
 import Toast from '../../components/toasts'
 //colors
 import {colors} from '../../assets/colors/colors'
-export default class  Login extends React.Component{ 
+class  SignIn extends React.Component{ 
     constructor(props){
         super(props)
         //set state
@@ -115,6 +116,8 @@ export default class  Login extends React.Component{
         )
     }
 
+
+ 
     //components rending method
     render(){
         return(
@@ -158,7 +161,25 @@ export default class  Login extends React.Component{
             </View>
         )
     }
+
+
 }
+
+//maps with the state global
+const mapDispatchToProps = (dispatch) => {
+    return {
+        dispatch: (action) => {dispatch(action)}
+    }
+}
+
+const mapStateToProps = (state) => {
+    return {
+        authentificationToken:state.authentificationToken
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn)
+
 
 //set screen styles
 const styles = StyleSheet.create({
