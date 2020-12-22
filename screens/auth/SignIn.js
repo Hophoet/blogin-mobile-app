@@ -1,6 +1,7 @@
 import React from 'react'
 import {StyleSheet, StatusBar, View, Text, ActivityIndicator, TextInput, TouchableOpacity, Dimensions} from 'react-native'
 import { connect } from 'react-redux'
+import { SET_AUTHENTIFICATION_TOKEN } from '../../redux/store/actions'
 
 import Toast from '../../components/toasts'
 //colors
@@ -85,6 +86,9 @@ class  SignIn extends React.Component{
                     //get of the login token
                     let token = response.key
                     console.log("LOGIN TOKEN", token)
+                    //redux request
+                    let action = {type:SET_AUTHENTIFICATION_TOKEN, value:token}
+                    this.props.dispatch(action)
                     // console.log(token)
                     this.props.navigation.navigate('Loader', {'authToken':token})
                     this.setState({isLoading:false})
@@ -97,7 +101,12 @@ class  SignIn extends React.Component{
                     Toast._show_bottom_toast('Network request failed')
                 });
             }
+        
+        
+        
+        
         }
+        
     }
     //loading activity render
     _loader = () => {
@@ -116,9 +125,9 @@ class  SignIn extends React.Component{
         )
     }
 
-
  
     //components rending method
+   
     render(){
         return(
             <View style={styles.container}>
