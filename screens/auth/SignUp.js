@@ -196,7 +196,7 @@ export default class  Login extends React.Component{
                     <Text style={styles.buttonText}>SIGN UP</Text>
                 </TouchableOpacity>
                 <View style={styles.footer}>
-                    <Text style={styles.footerTitle}>Alraidy have an account ? <Text style={styles.signinText}>sign in</Text></Text>
+                    <Text onPress={()=>this.props.navigation.navigate('SignIn', {})} style={styles.footerTitle}>Already have an account ? <Text style={styles.signinText}>sign in</Text></Text>
                 </View>
             </View>
         )
