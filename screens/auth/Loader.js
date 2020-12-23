@@ -1,11 +1,12 @@
 import React from 'react'
 import {Text, StyleSheet, View, ActivityIndicator} from 'react-native'
-import AsyncStorage from '@react-native-community/async-storage';import Icon from "react-native-vector-icons/Ionicons";
+import AsyncStorage from '@react-native-community/async-storage'
+import { connect } from 'react-redux'
+
 //colors
 import {colors} from '../../assets/colors/colors'
 
-
-export default class Loader extends React.Component{
+class Loader extends React.Component{
     constructor(props){
         super(props)
     }
@@ -123,6 +124,22 @@ export default class Loader extends React.Component{
         )
     }
 }
+
+//maps with the state global
+const mapDispatchToProps = (dispatch) => {
+    return {
+        dispatch: (action) => {dispatch(action)}
+    }
+}
+
+const mapStateToProps = (state) => {
+    return {
+        authentificationToken:state.authentificationToken
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Loader)
+
 
 const styles = StyleSheet.create({
     container:{
