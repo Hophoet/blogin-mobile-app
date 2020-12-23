@@ -32,6 +32,7 @@ export default class PostItem extends React.Component{
             })
         .then(result =>{
             let post_is_liked = result.post_is_liked
+            console.log()
             if(post_is_liked){
                 this.setState({postIsLikedByUser:true});
                 // console.log("--- is liked")
@@ -53,16 +54,13 @@ export default class PostItem extends React.Component{
 
     render() {
         const post = this.props.post 
-        const authToken = this.props.authToken 
-        console.log('item '+authToken)
-
+        // console.log("token"+this.state.postIsLikedByUser)
         return(
             <TouchableOpacity 
                 activeOpacity={.5} 
                 style={styles.itemContainer}
-                onPress={() => { this.props.navigate('PostDetail', {'post':post, 'authToken':authToken})}}
-                
-
+                onPress={() => { this.props.navigate('PostDetail', {'post':post})}}
+        
             >
                 <View style={styles.container}>
                     <View style={[styles.row, styles.row1]}>
@@ -96,7 +94,9 @@ export default class PostItem extends React.Component{
 
 const styles = StyleSheet.create({
     itemContainer:{
-        marginBottom:20,
+        backgroundColor:'white',
+        margin:10,
+        elevation:5
     },
     container:{
         flex:1,
