@@ -9,6 +9,7 @@ import {colors} from '../../assets/colors/colors'
 class Loader extends React.Component{
     constructor(props){
         super(props)
+        this.authentificationToken = this.props.authentificationToken
     }
 
         _tokenIsSends = () => {
@@ -104,12 +105,23 @@ class Loader extends React.Component{
          
             
         }
+
+        _actionManager = () => {
+            if(this.authentificationToken){
+                this._navigate('Home', {})
+            }
+            else{
+                this._navigate('SingIn', {})
+            }
+        }
+        
         componentDidMount(){
-            this._manager()
+            this._actionManager()
         }
 
 
     render(){
+        console.log('loader screen token: '+this.authentificationToken)
         return (
             <View style={styles.container}>
                 <View>
