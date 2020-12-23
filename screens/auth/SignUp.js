@@ -73,7 +73,9 @@ export default class  Login extends React.Component{
                 body: formdata,
                 redirect: 'follow'
                 };
-                fetch("https://hophoetapis.herokuapp.com/rest-auth/registration/", requestOptions)
+
+                
+                fetch("https://bloginapi.herokuapp.com/rest-auth/registration/", requestOptions)
                 .then(result => {
                     //successfull request response case
                     //invalid response 
@@ -90,28 +92,34 @@ export default class  Login extends React.Component{
                         return result.json()
                     }
                     else{
+                        // console.log(result)
                         Toast._show_bottom_toast('status'+result.status)
+                        return result.json();
                        
                     }
                     //stop the loading
                     this.setState({isLoading:false})
+                    // console.log(result)
+                    return result.json()
                     
                 })
                 .then(response => {
                     //registration done case
                     if(registrationDone){
                         let token = response.key
-                        this.props.navigation.navigate('Splash', { 'token': token })
+                        this.props.navigation.navigate('Loader', { 'authToken': token })
                     }
                       //get of the login token
                      //stop the loading
                      this.setState({isLoading:false})
+                     console.log(response)
   
                 })
                 .catch(error => {
                     //failed request case
                     //stop the loading
                     this.setState({isLoading:false})
+                    console.log(error)
                     Toast._show_bottom_toast('Network request failed')
                      //stop the loading
                      this.setState({isLoading:false})
