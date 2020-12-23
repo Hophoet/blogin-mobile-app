@@ -23,11 +23,10 @@ export default class HomeScreenBody extends React.Component{
            <View style={styles.postsContainer}>
                <Text>Posts</Text>
                <FlatList
-                    
                     data={posts}
-                    keyExtractor={({index, item}) => index}
+                    keyExtractor={(item) => item.timestamp}
                     renderItem={({index, item}) => <PostItem navigate={this.props.navigate} post={item}/>  }
-
+                    showsVerticalScrollIndicator={false}
                  />
            </View>
            
