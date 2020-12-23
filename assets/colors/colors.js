@@ -1,6 +1,7 @@
 
 const colors = {
     'core':'gray',
+    'body':'white'
 
 }
 
