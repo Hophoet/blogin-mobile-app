@@ -16,7 +16,7 @@ export default class UserProfile extends React.Component{
                         style={styles.closeButtonContainer}
                         onPress={this.props.toggleUserProfileModal}
                         >
-                        <Icon name='close' size={25}/>
+                        <Icon name='close' size={30}/>
                     </TouchableOpacity>
                     
                 </View>
@@ -26,7 +26,7 @@ export default class UserProfile extends React.Component{
                         <Image resizeMode='contain' style={styles.image} source={require('../../assets/images/profile.jpg')}/>
                     </View>
                     <View style={styles.indentityContainer}>
-                        <Text style={styles.userName}>Hophoet KE..</Text>
+                        <Text style={styles.userName}>Cesar Smile..</Text>
                     </View>
                     <View style={styles.infoContainer}>
                         <View style={styles.infoItemContainer}>
@@ -113,15 +113,17 @@ const styles  = StyleSheet.create({
     },
     closeBarContainer:{
         // backgroundColor:'red',
-        height:window.width/8,
+        height:window.width/5,
         flexDirection:'row',
         justifyContent:'flex-end',
+      
         // alignItems:'center'
     },
     closeButtonContainer:{
         // backgroundColor:'green',
         width:window.width/8,
         justifyContent:'center',
-        alignItems:'center'
+        alignItems:'center',
+        paddingRight:10,
     }
 })
