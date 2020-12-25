@@ -12,7 +12,10 @@ export default class UserProfile extends React.Component{
         return (
             <View style={styles.container}>
                 <View style={styles.closeBarContainer}>
-                    <TouchableOpacity style={styles.closeButtonContainer}>
+                    <TouchableOpacity 
+                        style={styles.closeButtonContainer}
+                        onPress={this.props.toggleUserProfileModal}
+                        >
                         <Icon name='close' size={25}/>
                     </TouchableOpacity>
                     
