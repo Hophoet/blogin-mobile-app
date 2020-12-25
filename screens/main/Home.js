@@ -1,11 +1,10 @@
 import React from 'react'
-import {StyleSheet, View, Text, Image, Dimensions, ActivityIndicator, FlatList} from 'react-native'
+import {StyleSheet, View, Text, Image, Dimensions, ActivityIndicator, FlatList, TouchableOpacity} from 'react-native'
 
 import { connect } from 'react-redux'
 //components
 import HomeScreenHeader from '../../components/HomeScreenHeader'
 import HomeScreenBody from '../../components/HomeScreenBody'
-import { TouchableOpacity } from 'react-native-gesture-handler'
 
 class Home extends React.Component {
     constructor(props){
@@ -18,6 +17,7 @@ class Home extends React.Component {
     }
     
     getPosts = ()=>{
+        console.log("request to get posts")
         this.setState({postsGettingIsLoading:true})
         var myHeaders = new Headers();
         myHeaders.append("Cookie", "sessionid=92jccbwo7zm1q4py6aehunwdctv1szqi; csrftoken=32SnaSPitIge3XqyW4eE1Biea2RYC644xdTL6aFUl7K40cVMZTfsy0zYjv4XZEei");
@@ -48,7 +48,6 @@ class Home extends React.Component {
             this.setState({postsGettingIsLoading:false})
             
         }
-                
         }
 
 
@@ -81,7 +80,7 @@ class Home extends React.Component {
         }
 
         return (
-         
+          
             <View style={styles.emptyCaseContainer}>
                 <View style={styles.imageContainer}>
                     <Image  resizeMode='contain' style={styles.image} source={require('../../assets/images/pis.jpg')}/>
@@ -92,10 +91,12 @@ class Home extends React.Component {
                 </View>
                 <TouchableOpacity 
                     activeOpacity={.5}
-                    onPress={this.getPosts} 
+                    onPress={this.getPosts}
                     style={styles.retryButtonContainer}
                 >
-                    <Text style={styles.retryButtonText}>Retry</Text>
+                    <Text 
+                        style={styles.retryButtonText}
+                        >Retry</Text>
                 </TouchableOpacity>
 
             </View>
