@@ -1,23 +1,44 @@
+
 import React from 'react'
-import {StyleSheet, View , Text, Dimensions, TouchableOpacity} from 'react-native'
+import {StyleSheet, View , Text, Dimensions, TouchableOpacity, Modal} from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 import {window} from '../assets/sizes/sizes'
 
-export default () => {
+import UserProfile from '../screens/main/UserProfile'
 
-    return (
-        <View style={styles.container}>
-                <View style={styles.appNameContainer}>
-                    <Text style={styles.appName}>BlogIn</Text>
-                </View>  
+export default class HomeScreenHeader extends React.Component {
+    constructor(props){
+        super(props)
+        this.state = { userProfileModalIsShow:false }
+    }
+    toggleUserProfileModal = () => {
+        this.setState({userProfileModalIsShow:!this.state.userProfileModalIsShow})
+    }
+    render(){
+        return (
+            <View style={styles.container}>
+                    <View style={styles.appNameContainer}>
+                        <Text style={styles.appName}>BlogIn</Text>
+                    </View>  
 
-            <View style={styles.userProfileColumn}>
-                <TouchableOpacity activeOpacity={.5} style={styles.userProfileIconContainer}>
-                    <Icon color='white' name='person' size={window.width/14}/>
-                </TouchableOpacity>
+                <View style={styles.userProfileColumn}>
+                    <TouchableOpacity 
+                        activeOpacity={.5} 
+                        style={styles.userProfileIconContainer}
+                        onPress={this.toggleUserProfileModal}
+                        >
+                        <Icon color='white' name='person' size={window.width/14}/>
+                    </TouchableOpacity>
+                </View>
+                <Modal 
+                    visible={this.state.userProfileModalIsShow}
+                   
+                      >
+                    <UserProfile toggleUserProfileModal={this.toggleUserProfileModal}/>
+                </Modal>
             </View>
-        </View>
-    )
+        )
+    }
 }
 
 const {height, width} = Dimensions.get('window')
