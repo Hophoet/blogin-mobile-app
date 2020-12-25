@@ -59,6 +59,10 @@ class Home extends React.Component {
                 <View style={styles.imageContainer}>
                     <Image  resizeMode='contain' style={styles.image} source={require('../../assets/images/pis.jpg')}/>
                 </View>
+                <View style={styles.postLoadingTextContainer}>
+                    <Text style={styles.postLoadingText}>loading posts..</Text>
+                    <Text style={styles.postLoadingText}>please wait</Text>
+                </View>
                 <View style={styles.activityIndicatorContainer}>
                     <ActivityIndicator color='gray' size='large' style={styles.activityIndicator}/>
                 </View>
@@ -82,9 +86,17 @@ class Home extends React.Component {
                 <View style={styles.imageContainer}>
                     <Image  resizeMode='contain' style={styles.image} source={require('../../assets/images/pis.jpg')}/>
                 </View>
-                <View>
-                    <Text>check your connexion</Text>
+                <View style={styles.failedTextsContainer}>
+                    <Text style={styles.failedText}>posts loading failed</Text>
+                    <Text style={styles.failedText}>check your connexion</Text>
                 </View>
+                <TouchableOpacity 
+                    activeOpacity={.5}
+                    onPress={this.getPosts} 
+                    style={styles.retryButtonContainer}
+                >
+                    <Text style={styles.retryButtonText}>Retry</Text>
+                </TouchableOpacity>
 
             </View>
         )
@@ -149,5 +161,34 @@ const styles = StyleSheet.create({
         backgroundColor:'white',
         borderRadius:40,
         elevation:10
+    },
+    failedTextsContainer:{
+        // backgroundColor:'red',
+        justifyContent:'center',
+        alignItems:'center'
+    },
+    failedText:{
+        textAlign:'center',
+    },
+    retryButtonContainer:{
+        paddingHorizontal:20,
+        paddingVertical:10,
+        borderRadius:5,
+        justifyContent:'center',
+        alignItems:'center',
+        backgroundColor:'gray',
+        elevation:5,
+        marginVertical:5
+    },
+    retryButtonText:{
+        color:'white'
+    },
+    postLoadingTextContainer:{
+        justifyContent:'center',
+        alignItems:'center',
+        marginBottom:5
+    },
+    postLOadingText:{
+        textAlign:'center'
     }
 })
