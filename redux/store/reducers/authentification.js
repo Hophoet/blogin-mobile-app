@@ -1,4 +1,5 @@
-import {SET_AUTHENTIFICATION_TOKEN, GET_USER_PROFILE, REMOVE_AUTHENFICATION_TOKEN} from '../actions'
+import {SET_AUTHENTIFICATION_TOKEN, REMOVE_USER_PROFILE,
+        GET_USER_PROFILE, REMOVE_AUTHENFICATION_TOKEN} from '../actions'
 
 //set initial state
 const initialState = {
@@ -35,6 +36,12 @@ const reducer = (state = initialState, action) => {
         }
         // console.log('REMOVE AUTH TOKEN REDUCER')
         // console.log(newState)
+        return newState
+    case REMOVE_USER_PROFILE:
+        newState = { ...state }
+        if(newState.hasOwnProperty('userProfile')){
+            delete newState.userProfile
+        }
         return newState
     default:
       return state
