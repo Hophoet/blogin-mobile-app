@@ -1,11 +1,10 @@
 //Authentification
 const SET_AUTHENTIFICATION_TOKEN = 'SET_AUTHENTIFICATION_TOKEN'
-const setAuthentificationTokenAction = {
-    type: setAuthentificationTokenAction
-}
+const GET_USER_PROFILE = 'GET_USER_PROFILE'
 
 
 
-export default {
-    setAuthentificationTokenAction
+export  {
+    SET_AUTHENTIFICATION_TOKEN,
+    GET_USER_PROFILE
 }
