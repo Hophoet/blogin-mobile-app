@@ -115,6 +115,7 @@ class Loader extends React.Component{
 
         _actionManager = () => {
             if(this.authentificationToken){
+                this.getUserProfile(this.authentificationToken)
                 this._navigate('Home', {})
             }
             else{
