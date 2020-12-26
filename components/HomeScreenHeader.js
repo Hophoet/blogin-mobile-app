@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import {window} from '../assets/sizes/sizes'
 import { connect } from 'react-redux'
 //redux actions
-import { REMOVE_AUTHENFICATION_TOKEN } from '../redux/store/actions'
+import { REMOVE_AUTHENFICATION_TOKEN, REMOVE_USER_PROFILE } from '../redux/store/actions'
 
 import UserProfile from '../screens/main/UserProfile'
 
@@ -20,9 +20,12 @@ class HomeScreenHeader extends React.Component {
     }
 
     logout = () => {
-        let action = {type:REMOVE_AUTHENFICATION_TOKEN, value:{}}
-        this.props.dispatch(action)
-        // this.props.navigation.navigate('Loader', {'authToken':token})
+        this.toggleUserProfileModal()
+        let removeAuthenficationTokenAction = {type:REMOVE_AUTHENFICATION_TOKEN, value:{}}
+        let removeProfileAction = {type:REMOVE_USER_PROFILE, value:{}}
+        this.props.dispatch(removeAuthenficationTokenAction)
+        this.props.dispatch(removeProfileAction)
+        this.props.navigate('Loader', {})
     }
 
     render(){
