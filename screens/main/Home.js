@@ -17,7 +17,7 @@ class Home extends React.Component {
     }
     
     getPosts = ()=>{
-        console.log("request to get posts")
+        // console.log("request to get posts")
         this.setState({postsGettingIsLoading:true})
         var myHeaders = new Headers();
         myHeaders.append("Cookie", "sessionid=92jccbwo7zm1q4py6aehunwdctv1szqi; csrftoken=32SnaSPitIge3XqyW4eE1Biea2RYC644xdTL6aFUl7K40cVMZTfsy0zYjv4XZEei");
@@ -28,8 +28,8 @@ class Home extends React.Component {
         redirect: 'follow'
         };
         if(!this.posts.length){
-            console.log('call')
-            console.log(this.posts)
+            // console.log('call')
+            // console.log(this.posts)
             fetch("https://bloginapi.herokuapp.com/posts/", requestOptions)
             .then(response => {
                 return response.json()
@@ -116,7 +116,8 @@ class Home extends React.Component {
 
 
     render(){
-        // console.log("home "+this.authToken)
+        // console.log("home "+this.props.authentificationToken)
+        // console.log("user profile "+this.props.userProfile)
         return (
             <View style={styles.container}>
                 <HomeScreenHeader/>
@@ -135,7 +136,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
     return {
-        authentificationToken:state.authentificationToken
+        authentificationToken:state.authentificationToken,
+        userProfile:state.userProfile
     }
 }
 
