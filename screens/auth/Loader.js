@@ -114,16 +114,18 @@ class Loader extends React.Component{
         }
 
         _actionManager = () => {
+            console.log('log')
             if(this.authentificationToken){
                 this.getUserProfile(this.authentificationToken)
                 this._navigate('Home', {})
             }
             else{
-                this._navigate('SingIn', {})
+                this._navigate('SignIn', {})
             }
         }
 
         getUserProfile = async (authentificationToken) => {
+            // console.log("user profile")
             var myHeaders = new Headers();
             myHeaders.append("Authorization", `Token ${authentificationToken}`);//237eb88eeb2afd0808a541eff4d6e4b4d8d8710e
             myHeaders.append("Cookie", "csrftoken=kWYMbGH7vzzKbjxXVYbUTKKw8ZtgHaAJZ2QH0bIfFaW19Yaxo1oyoJcRj8aboSnI; sessionid=mcm5vs9sy9qu11jmug3paj2madpdfulh");
@@ -138,10 +140,13 @@ class Loader extends React.Component{
             // console.log(response)
             if(response.status == 200){
                 const result =  await response.json()
-                if(!this.authentificationToken){
+                console.log(result)
+                if(this.authentificationToken){
                     let action = {type:GET_USER_PROFILE, value:result}
                     this.props.dispatch(action)
                 }
+                // console.log('token'+ this.authentificationToken)
+ 
                
             }
             
