@@ -3,11 +3,13 @@ import {View, StyleSheet, Text, Image, TouchableOpacity} from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 import {window} from '../../assets/sizes/sizes'
+
 export default class UserProfile extends React.Component{
     constructor(props){
         super(props)
     }
 
+   
     render(){
         const userProfile = this.props.userProfile
         return (
@@ -42,7 +44,17 @@ export default class UserProfile extends React.Component{
                             <Text style={styles.infoTitle}>Comments</Text>
                             <Text style={styles.infoValue}>{userProfile.comment}</Text>
                         </View>
+                    
                     </View>
+                    <View style={styles.buttonContainer}>
+                            <TouchableOpacity 
+                                activeOpacity={.5} 
+                                style={styles.logoutButtonContainer}
+                                onPress={this.props.logout}
+                                >
+                                <Text style={styles.logoutButtonText}>logout</Text>
+                            </TouchableOpacity>
+                        </View>
                 </View>
                 <View style={styles.footer}>
 
@@ -76,7 +88,7 @@ const styles  = StyleSheet.create({
         // alignItems:'center'
     },
     footer:{
-        flex:2,
+        flex:1,
         backgroundColor:'white'
     },
     indentityContainer:{
@@ -126,5 +138,25 @@ const styles  = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         paddingRight:10,
+    },
+    logoutButtonContainer:{
+        backgroundColor:'white',
+        justifyContent:'center',
+        alignItems:'center',
+        alignSelf:'center',
+        marginTop:10,
+        paddingHorizontal:20,
+        paddingVertical:10,
+        elevation:10,
+        borderColor:'white',
+        borderWidth:4
+    },
+    logoutButtonText:{
+        // color:'white',
+        opacity:.5
+    },  
+    buttonContainer:{
+        // backgroundColor:'green',
+        
     }
 })
