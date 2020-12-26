@@ -3,10 +3,12 @@ import React from 'react'
 import {StyleSheet, View , Text, Dimensions, TouchableOpacity, Modal} from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 import {window} from '../assets/sizes/sizes'
+import { connect } from 'react-redux'
+
 
 import UserProfile from '../screens/main/UserProfile'
 
-export default class HomeScreenHeader extends React.Component {
+class HomeScreenHeader extends React.Component {
     constructor(props){
         super(props)
         this.state = { userProfileModalIsShow:false }
@@ -40,6 +42,22 @@ export default class HomeScreenHeader extends React.Component {
         )
     }
 }
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        dispatch: (action) => {dispatch(action)}
+    }
+}
+
+const mapStateToProps = (state) => {
+    return {
+        authentificationToken:state.authentificationToken,
+        userProfile:state.userProfile
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreenHeader)
+
 
 const {height, width} = Dimensions.get('window')
 
