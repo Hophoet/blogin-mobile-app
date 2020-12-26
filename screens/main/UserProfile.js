@@ -9,6 +9,7 @@ export default class UserProfile extends React.Component{
     }
 
     render(){
+        const userProfile = this.props.userProfile
         return (
             <View style={styles.container}>
                 <View style={styles.closeBarContainer}>
@@ -26,20 +27,20 @@ export default class UserProfile extends React.Component{
                         <Image resizeMode='contain' style={styles.image} source={require('../../assets/images/profile.jpg')}/>
                     </View>
                     <View style={styles.indentityContainer}>
-                        <Text style={styles.userName}>Cesar Smile..</Text>
+                        <Text style={styles.userName}>{userProfile.name}</Text>
                     </View>
                     <View style={styles.infoContainer}>
                         <View style={styles.infoItemContainer}>
                             <Text style={styles.infoTitle}>Posts</Text>
-                            <Text style={styles.infoValue}>34</Text>
+                            <Text style={styles.infoValue}>{userProfile.post}</Text>
                         </View>
                         <View style={styles.infoItemContainer}>
                             <Text style={styles.infoTitle}>LIkes</Text>
-                            <Text style={styles.infoValue}>234</Text>
+                            <Text style={styles.infoValue}>{userProfile.like}</Text>
                         </View>
                         <View style={styles.infoItemContainer}>
                             <Text style={styles.infoTitle}>Comments</Text>
-                            <Text style={styles.infoValue}>19</Text>
+                            <Text style={styles.infoValue}>{userProfile.comment}</Text>
                         </View>
                     </View>
                 </View>
