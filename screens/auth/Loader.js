@@ -176,7 +176,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
     return {
-        authentificationToken:state.authentificationToken
+        authentificationToken:state.authentificationToken,
+        userProfile:state.userProfile
     }
 }
 
