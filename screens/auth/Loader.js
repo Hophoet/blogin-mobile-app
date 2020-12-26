@@ -138,8 +138,11 @@ class Loader extends React.Component{
             // console.log(response)
             if(response.status == 200){
                 const result =  await response.json()
-                let action = {type:GET_USER_PROFILE, value:result}
-                this.props.dispatch(action)
+                if(!this.authentificationToken){
+                    let action = {type:GET_USER_PROFILE, value:result}
+                    this.props.dispatch(action)
+                }
+               
             }
             
         }
@@ -150,7 +153,7 @@ class Loader extends React.Component{
 
 
     render(){
-        console.log('loader screen token: '+this.authentificationToken)
+        // console.log('loader screen token: '+this.authentificationToken)
 
         return (
             <View style={styles.container}>
