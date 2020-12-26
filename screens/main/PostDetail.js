@@ -1,5 +1,6 @@
 import React from 'react'
 import {View, Text, StyleSheet, Image, ScrollView, Dimensions, FlatList, TouchableOpacity, TouchableWithoutFeedback} from 'react-native'
+import { connect } from 'react-redux'
 //color
 import {colors} from '../../assets/colors/colors'
 //sizes
@@ -10,14 +11,16 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import PostDetailScreenHeader from '../../components/PostDetailScreenHeader'
 import PostCommentItem from '../../components/PostCommentItem'
 import FloatButton from '../../components/buttons/FloatButton'
-export default class PostDetail extends React.Component{
+class PostDetail extends React.Component{
     constructor(props){
         super(props)
         this.post = this.props.navigation.state.params.post
-        this.authToken = this.props.navigation.state.params.authToken
+        this.authToken = this.props.authentificationToken//this.props.navigation.state.params.authToken
         this.state = {
-            postIsLiked:false
+            postIsLiked:false,
+            postLike:0 
         }
+       
     }
 
     getPostLikeIconLabel = () => {
@@ -32,7 +35,6 @@ export default class PostDetail extends React.Component{
         var myHeaders = new Headers();
         myHeaders.append("Authorization", `Token ${this.authToken}`);
         myHeaders.append("Cookie", "sessionid=92jccbwo7zm1q4py6aehunwdctv1szqi; csrftoken=32SnaSPitIge3XqyW4eE1Biea2RYC644xdTL6aFUl7K40cVMZTfsy0zYjv4XZEei");
-
         var formdata = new FormData();
         formdata.append("user", "1");
         formdata.append("post_id", `${postId}`);
@@ -51,12 +53,15 @@ export default class PostDetail extends React.Component{
             let state = result.state 
             if(state == 'post liked'){
                 this.setState({postIsLiked:true});
-                // console.log('post liked')
+                this.setState({postLike:result.likes})
+                console.log('post liked')
+            
             }
             else{
                 this.setState({postIsLiked:false});
-                // console.log(result.state)
-                // console.log('post not liked')
+                this.setState({postLike:result.likes})
+                // console.log(result)
+                console.log('post not liked')
 
             }
         })
@@ -73,7 +78,7 @@ export default class PostDetail extends React.Component{
         myHeaders.append("Cookie", "sessionid=92jccbwo7zm1q4py6aehunwdctv1szqi; csrftoken=32SnaSPitIge3XqyW4eE1Biea2RYC644xdTL6aFUl7K40cVMZTfsy0zYjv4XZEei");
 
         var formdata = new FormData();
-        formdata.append("user", "1");
+        // formdata.append("user", "1");
         formdata.append("post_id", `${postId}`);
         formdata.append("post", `${postId}`);
 
@@ -115,13 +120,15 @@ export default class PostDetail extends React.Component{
 
     componentDidMount(){
         this.postIsLiked(this.post.id)
+        this.setState({postLike:this.post.like})
     }
 
 
     render(){
-        // console.log('post detail authtoken '+this.authToken)
+        // console.log('post detail authtoken from redux'+this.authToken)
      
        const headerData = { 'postTitle':this.post.title}
+        
         return (
             <View style={styles.container}>
                 <PostDetailScreenHeader navigate={this.navigate} headerData={headerData}  />
@@ -138,6 +145,7 @@ export default class PostDetail extends React.Component{
                     <View style={styles.bodyContainer}>
                     <TouchableOpacity style={styles.postLikeIconContainer}  onPress={() => {this.togglePostLike(this.post.id)}} >
                         <Icon name={this.getPostLikeIconLabel()} size={window.width/7} />
+                        <Text style={styles.postLikeCount}>{this.state.postLike}</Text>
                     </TouchableOpacity>
             
                         <Text style={styles.title}>{this.post.title}</Text>
@@ -161,6 +169,22 @@ export default class PostDetail extends React.Component{
         )
     }
 }
+
+//maps with the state global
+const mapDispatchToProps = (dispatch) => {
+    return {
+        dispatch: (action) => {dispatch(action)}
+    }
+}
+
+const mapStateToProps = (state) => {
+    return {
+        authentificationToken:state.authentificationToken
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostDetail)
+
 
 const {height, width} = Dimensions.get('window')
 const styles = StyleSheet.create({
@@ -211,5 +235,8 @@ const styles = StyleSheet.create({
         // bottom:window.width/10,
         
         
+    },
+    postLikeCount:{
+        fontSize:25
     }
 })
