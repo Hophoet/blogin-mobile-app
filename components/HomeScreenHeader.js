@@ -14,9 +14,12 @@ class HomeScreenHeader extends React.Component {
         this.state = { userProfileModalIsShow:false }
     }
     toggleUserProfileModal = () => {
-        this.setState({userProfileModalIsShow:!this.state.userProfileModalIsShow})
+        if(this.props.userProfile)
+            this.setState({userProfileModalIsShow:!this.state.userProfileModalIsShow})
     }
     render(){
+        console.log('home screen header component')
+        console.log(this.props.userProfile)
         return (
             <View style={styles.container}>
                     <View style={styles.appNameContainer}>
