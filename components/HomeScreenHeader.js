@@ -4,7 +4,8 @@ import {StyleSheet, View , Text, Dimensions, TouchableOpacity, Modal} from 'reac
 import Icon from 'react-native-vector-icons/Ionicons'
 import {window} from '../assets/sizes/sizes'
 import { connect } from 'react-redux'
-
+//redux actions
+import { REMOVE_AUTHENFICATION_TOKEN } from '../redux/store/actions'
 
 import UserProfile from '../screens/main/UserProfile'
 
@@ -17,9 +18,16 @@ class HomeScreenHeader extends React.Component {
         if(this.props.userProfile)
             this.setState({userProfileModalIsShow:!this.state.userProfileModalIsShow})
     }
+
+    logout = () => {
+        let action = {type:REMOVE_AUTHENFICATION_TOKEN, value:{}}
+        this.props.dispatch(action)
+        // this.props.navigation.navigate('Loader', {'authToken':token})
+    }
+
     render(){
-        console.log('home screen header component')
-        console.log(this.props.userProfile)
+        // console.log('home screen header component')
+        // console.log(this.props.userProfile)
         return (
             <View style={styles.container}>
                     <View style={styles.appNameContainer}>
@@ -39,7 +47,7 @@ class HomeScreenHeader extends React.Component {
                     visible={this.state.userProfileModalIsShow}
                    
                       >
-                    <UserProfile userProfile={this.props.userProfile} toggleUserProfileModal={this.toggleUserProfileModal}/>
+                    <UserProfile logout={this.logout} userProfile={this.props.userProfile} toggleUserProfileModal={this.toggleUserProfileModal}/>
                 </Modal>
             </View>
         )
