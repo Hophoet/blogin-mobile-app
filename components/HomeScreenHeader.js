@@ -39,7 +39,7 @@ class HomeScreenHeader extends React.Component {
                     visible={this.state.userProfileModalIsShow}
                    
                       >
-                    <UserProfile toggleUserProfileModal={this.toggleUserProfileModal}/>
+                    <UserProfile userProfile={this.props.userProfile} toggleUserProfileModal={this.toggleUserProfileModal}/>
                 </Modal>
             </View>
         )
