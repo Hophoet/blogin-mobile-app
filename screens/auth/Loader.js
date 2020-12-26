@@ -3,6 +3,9 @@ import {Text, StyleSheet, View, ActivityIndicator} from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
 import { connect } from 'react-redux'
 
+//redux actions
+import { GET_USER_PROFILE } from '../../redux/store/actions'
+
 //colors
 import {colors} from '../../assets/colors/colors'
 
@@ -11,7 +14,7 @@ class Loader extends React.Component{
         super(props)
         this.authentificationToken = this.props.authentificationToken
     }
-
+        
         _tokenIsSends = () => {
             let tokenIsSend = false
             let params = this.props.navigation.state.params
@@ -22,6 +25,7 @@ class Loader extends React.Component{
             }
             return tokenIsSend
         }
+    
         _saveTokenExists = async () => {
             const keys = await AsyncStorage.getAllKeys()
             const values = await AsyncStorage.multiGet(keys)
@@ -36,6 +40,7 @@ class Loader extends React.Component{
             })
             return tokenExists
         }
+
         _getSendTokenFromAuth = () =>{
             let params = this.props.navigation.state.params
             let token = false
@@ -46,6 +51,7 @@ class Loader extends React.Component{
             }
             return token
         }
+
         _getSaveToken = async () => {
             const keys = await AsyncStorage.getAllKeys()
             const values = await AsyncStorage.multiGet(keys)
@@ -59,7 +65,7 @@ class Loader extends React.Component{
             })
             return tokenExists
         }
-        //save token
+
         _saveToken = (token) => {
             AsyncStorage.setItem('authToken', token)
             .then(()=>{
@@ -70,6 +76,7 @@ class Loader extends React.Component{
         _navigate = (toScreen, data) => {
             this.props.navigation.navigate(toScreen, data)
         }
+        
         _manager = () => {
             console.log('manager')
             if(this._saveTokenExists().d){
@@ -114,7 +121,28 @@ class Loader extends React.Component{
                 this._navigate('SingIn', {})
             }
         }
+
+        getUserProfile = async (authentificationToken) => {
+            var myHeaders = new Headers();
+            myHeaders.append("Authorization", `Token ${authentificationToken}`);//237eb88eeb2afd0808a541eff4d6e4b4d8d8710e
+            myHeaders.append("Cookie", "csrftoken=kWYMbGH7vzzKbjxXVYbUTKKw8ZtgHaAJZ2QH0bIfFaW19Yaxo1oyoJcRj8aboSnI; sessionid=mcm5vs9sy9qu11jmug3paj2madpdfulh");
         
+            var requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+            };
+        
+            const response = await fetch("https://bloginapi.herokuapp.com/user-profile/", requestOptions)
+            // console.log(response)
+            if(response.status == 200){
+                const result =  await response.json()
+                let action = {type:GET_USER_PROFILE, value:result}
+                this.props.dispatch(action)
+            }
+            
+        }
+
         componentDidMount(){
             this._actionManager()
         }
@@ -122,6 +150,7 @@ class Loader extends React.Component{
 
     render(){
         console.log('loader screen token: '+this.authentificationToken)
+
         return (
             <View style={styles.container}>
                 <View>
