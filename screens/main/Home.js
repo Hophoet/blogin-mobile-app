@@ -108,6 +108,9 @@ class Home extends React.Component {
         this.props.navigation.navigate(screenName, data)
     }
 
+  
+
+
     componentDidMount(){
         this.authToken = this.props.navigation.state.params.authToken 
         // console.log(this.authToken)
@@ -120,7 +123,7 @@ class Home extends React.Component {
         // console.log("user profile "+this.props.userProfile)
         return (
             <View style={styles.container}>
-                <HomeScreenHeader/>
+                <HomeScreenHeader navigate={this.navigate}/>
 		        {this.showScreen()}
             </View>
         )
