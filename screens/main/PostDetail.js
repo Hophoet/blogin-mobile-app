@@ -164,7 +164,7 @@ class PostDetail extends React.Component{
                         </View>
                     </View>
                 </ScrollView>
-                <FloatButton/>
+                <FloatButton post={this.post} />
             </View>
         )
     }
